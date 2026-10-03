@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Patrick+Hand&display=swap&subset=vietnamese">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Bạn có thư nè</title>
+</head>
+<body>
+    <!-- Mở thư bằng checkbox + label: chạm phong bì là mở, chạy được cả khi JS bị chặn -->
+    <input type="checkbox" class="chk" id="openLetter" aria-label="Mở thư">
+
+    <!-- Nhạc nền: phát khi chạm lần đầu, chỉ tải lúc đó -->
+    <audio id="player" src="./assets/a.mp3" loop preload="none"></audio>
+
+    <div class="envelope-container">
+        <label class="envelope" for="openLetter">
+            <div class="envelope__tab"></div>
+            <div class="envelope__letter">
+                <p class="envelope__title">🎂🌷 Happy Birthday!</p>
+                <p class="envelope__preview" id="letterPreview"></p>
+            </div>
+            <div class="envelope--base"></div>
+        </label>
+        <label class="envelope__hint" for="openLetter">Chạm để mở thư 💌</label>
+    </div>
+
+    <!-- Lá thư mở ra -->
+    <div class="letter-overlay">
+        <label class="letter-backdrop" for="openLetter" aria-label="Đóng thư"></label>
+        <article class="letter-card">
+            <label class="letter-close" for="openLetter" aria-label="Đóng thư">×</label>
+            <div class="letter-body" id="letterBody"></div>
+        </article>
+    </div>
+
+    <!-- Vườn hoa mọc ở đáy màn hình (lấy từ WomensDay-main) -->
+    <div class="flower-garden" aria-hidden="true">
+    <div class="flowers">
+        <div class="flower flower--1">
+            <div class="flower__leafs flower__leafs--1">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+                <div class="flower__line__leaf flower__line__leaf--5"></div>
+                <div class="flower__line__leaf flower__line__leaf--6"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--2">
+            <div class="flower__leafs flower__leafs--2">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--3">
+            <div class="flower__leafs flower__leafs--3">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__white-circle"></div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+            </div>
+        </div>
+
+        <div class="grow-ans" style="--d:1.2s">
+            <div class="flower__g-long">
+                <div class="flower__g-long__top"></div>
+                <div class="flower__g-long__bottom"></div>
+            </div>
+        </div>
+        <div class="growing-grass">
+            <div class="flower__grass flower__grass--right">
+                <div class="flower__grass--top"></div>
+                <div class="flower__grass--bottom"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+                <div class="flower__grass__overlay"></div>
+            </div>
+        </div>
+        <div class="growing-grass">
+            <div class="flower__grass flower__grass--1">
+                <div class="flower__grass--top"></div>
+                <div class="flower__grass--bottom"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+                <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+                <div class="flower__grass__overlay"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- khung cắt: xe chạy ra ngoài màn hình không làm trang bị phóng to/thu nhỏ trên điện thoại -->
+    <div class="road">
+    <div class="truck-container">
+        <div class="container">
+            <div class="ts">
+           <div class="box"></div>
+            <div class="front">
+                
+                <div class="light"></div>
+                <div class="trapezoid"></div>
+                <div class="pipe"></div>
+                <div class="pipe2"></div>
+                <img class="img1" src="https://i.gifer.com/5zoP.gif">
+                <img class="img2" src="https://i.gifer.com/5zoP.gif">
+                <img class="img3" src="https://i.gifer.com/5zoP.gif">
+                <img class="img4" src="https://i.gifer.com/5zoP.gif">
+                <img class="img5" src="https://i.gifer.com/5zoP.gif">
+                <img class="img6" src="https://i.gifer.com/5zoP.gif">
+                <img class="img7" src="https://i.gifer.com/5zoP.gif">
+                <img class="img8" src="https://i.gifer.com/5zoP.gif">
+                <img class="img9" src="https://i.gifer.com/5zoP.gif">
+                <img class="img10" src="https://i.gifer.com/5zoP.gif">
+                <img class="img11" src="https://i.gifer.com/5zoP.gif">
+                <div class="front1"></div>
+                <div class="front2"></div>
+                <div class="window"></div>
+                 <div class="hood"></div>    
+            </div>
+             <div class="tyre1">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre2">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre3">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre4">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+    /* ===== Sửa nội dung thư ở đây ===== */
+    const LETTER = {
+        title: "🎂🌷 Happy Birthday!",
+        paragraphs: [
+            "Chúc mừng sinh nhật cô bạn đại học của t! 🥰",
+            "Ngày trước còn cùng nhau đi học, cùng nhau trải qua những ngày tháng sinh viên, vậy mà giờ mỗi đứa đã ở một nơi và có một cuộc sống riêng rồi.",
+            "Chúc bạn tuổi mới luôn xinh đẹp, rạng rỡ và được bao quanh bởi thật nhiều yêu thương. 💕",
+            "Mong những điều bạn mong ước đều sẽ từ từ trở thành hiện thực, công việc ngày càng thuận lợi, sự nghiệp ngày càng phát triển và mỗi ngày đều có thật nhiều lý do để mỉm cười. ✨",
+            "Dù giờ không còn gặp nhau thường xuyên như những ngày đại học, nhưng những kỷ niệm thời sinh viên vẫn luôn là một phần rất đẹp. 🌸",
+            "Mong bạn sẽ luôn gặp được những điều tốt đẹp, làm điều mình thích, theo đuổi điều mình muốn và có thật nhiều khoảnh khắc đáng nhớ trong những năm tháng phía trước.",
+            "Tuổi mới thật nhiều niềm vui, thật nhiều may mắn và thật nhiều hạnh phúc nhé! 🎀💐",
+            "Mong những ngày tháng về sau sẽ đối xử thật dịu dàng với cô gái này 🌷",
+        ],
+        // ảnh xen giữa các đoạn: ảnh thứ i nằm sau đoạn photoAfter[i]
+        photos: ["./assets/a1.jpg", "./assets/a2.jpg", "./assets/a3.jpg", "./assets/a4.jpg", "./assets/a5.jpg"],
+        photoAfter: [1, 2, 4, 5, 7],
+        // ảnh chụp xoay ngang: cạnh trắng dày của khung nằm bên trái (số thứ tự ảnh, đếm từ 0)
+        thickLeft: [3],
+    };
+    /* ================================== */
+
+    let html = `<h1 class="letter-title">${LETTER.title}</h1>`;
+    LETTER.paragraphs.forEach((p, i) => {
+        html += `<p>${p}</p>`;
+        LETTER.photoAfter.forEach((after, k) => {
+            if (after === i && LETTER.photos[k]) {
+                const thick = LETTER.thickLeft.includes(k) ? " thick-left" : "";
+                html += `<figure class="polaroid ${k % 2 ? "tilt-r" : "tilt-l"}${thick}">` +
+                        `<img src="${LETTER.photos[k]}" alt="" loading="lazy"></figure>`;
+            }
+        });
+    });
+    document.getElementById("letterBody").innerHTML = html;
+
+    // đoạn đầu thư hiện trên lá thư nhỏ trong phong bì
+    document.getElementById("letterPreview").innerHTML = LETTER.paragraphs.slice(0, 2).join(" ");
+
+    // Nhạc: trình duyệt chỉ cho phát sau khi người xem chạm vào trang
+    const player = document.getElementById("player");
+    function playMusic() {
+        if (player.paused) player.play().catch(() => {});
+    }
+    document.addEventListener("pointerdown", playMusic);
+    document.addEventListener("touchstart", playMusic, { passive: true });
+
+    // Tạm dừng nhạc khi ẩn tab / tắt màn hình, phát tiếp khi quay lại
+    let pausedByHide = false;
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            if (!player.paused) { player.pause(); pausedByHide = true; }
+        } else if (pausedByHide) {
+            pausedByHide = false;
+            player.play().catch(() => {});
+        }
+    });
+
+    // mở lại thư thì cuộn về đầu
+    document.getElementById("openLetter").addEventListener("change", (e) => {
+        if (e.target.checked) document.getElementById("letterBody").scrollTop = 0;
+    });
+    </script>
+</body>
+</html>
