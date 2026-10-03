@@ -384,7 +384,8 @@ html { overflow: hidden; }
 
 /* chạm phong bì: lá thư trồi hẳn lên khỏi phong bì, sau đó lá thư to mới mở ra */
 #openLetter:checked ~ .envelope-container .envelope__letter {
-  height: 214px; color: #4c4444;
+  /* tối đa ~190px: cao hơn sẽ vượt khung phong bì (224px, overflow: hidden) và bị cắt */
+  height: 186px; color: #4c4444;
   transition: height .8s cubic-bezier(.4, 0, .2, 1);
 }
 #openLetter:checked ~ .envelope-container .envelope__hint { opacity: 0; animation: none; transition: opacity .3s; }
@@ -535,7 +536,9 @@ html { overflow: hidden; }
   .flower-garden { --u: min(1vmin, calc((60dvh - 165px) / 83)); }
 }
 .flower-garden * { pointer-events: none; user-select: none; }
-.flowers { position: relative; transform: scale(0.9); }
+.flowers { position: relative; transform: scale(0.72); }
+/* lật ngang quanh tâm vườn hoa: bụi cỏ trái thành bụi cỏ phải */
+.grass-mirror { position: absolute; left: 0; top: 0; width: 0; height: 0; transform: scale(-1.15, 1.15); transform-style: preserve-3d; } /* 1.15 = to hơn bụi trái 15% */
 .flower { position: absolute; bottom: calc(10 * var(--u)); transform-origin: center bottom; z-index: 10; --fl-speed: 0.8s; }
 .flower--1 { animation: 4s linear 0s infinite normal none running moving-flower-1; }
 .flower--1 .flower__line { height: calc(70 * var(--u)); animation-delay: 0.3s; }
